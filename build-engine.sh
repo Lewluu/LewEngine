@@ -7,14 +7,18 @@ log_info="[::: BUILD INFO :::] "
 log_warning="[::: BUILD WARNING :::] "
 log_error="[::: BUILD ERROR :::] "
 
+# set targets with environment variables
 declare -A targets
-
 targets=(
     ["VS17"]="Visual Studio 17 2022"
     ["VS16"]="Visual Studio 16 2019"
     ["VS15"]="Visual Studio 15 2017"
     ["VS14"]="Visual Studio 14 2015"
-    ["MinGW"]="MinGW Makefiles"
+    ["MinGW"]="
+        MinGW Makefiles
+        export CC=/c/msys64/mingw64/bin/gcc
+        export CXX=/c/msys64/mingw64/bin/g++
+        mkp=/c/msys64/mingw64/bin/make"
     ["NMake"]="NMake Makefiles"
     ["MSYS"]="MSYS Makefiles"
     ["Unix"]="Unix Makefiles"
@@ -42,8 +46,7 @@ help () {
     exit 0
 }
 
-while getopts ":ht:m:" flag
-do
+while getopts ":ht:m:" flag; do
     case "${flag}" in
         m) mode=${OPTARG};;
         t) target=${OPTARG};;
@@ -52,48 +55,39 @@ do
 done
 
 # detecting the target build
-if [ -z "$target" ]
-then
+if [ -z "$target" ]; then
     echo $log_warning"Target is empty ... setting default to MinGW"
-    target="MinGW Makefiles"
+    target="MinGW"
     target_set=true
 else
-    for t in "${!targets[@]}"
-    do
-        if [ "$target" == "$t" ]
-        then
-            target=${targets[$t]}
-            target_set=true
+    for t in "${!targets[@]}"; do
+        if [ "$target" == "$t" ]; then
             echo $log_info"Target to build set to "$target
+            target_set=true
             break
         fi
     done
 fi
 
-if [ -z "$target_set" ]
-then
+if [ -z "$target_set" ]; then
     echo $log_error"Target set does not exists. Please select from ${!targets[@]}"
     exit 1
 fi
 
-# compiler paths; need to be configured locally
-if [ "$target" = "MinGW Makefiles" ]; then
-    export CC=/c/msys64/mingw64/bin/gcc
-    export CXX=/c/msys64/mingw64/bin/g++
-    mkp="/c/msys64/mingw64/bin/make"
-fi
+# setup environment target parameters based on selected target from 2nd position
+readarray -t tpar <<< "${targets[$target]}"
+for (( i=2; i<"$(("${#tpar[@]}"))"; i++ )); do
+    eval "${tpar[$i]}"
+done
 
 # detecting build mode
-if [ -z "$mode" ]
-then
+if [ -z "$mode" ]; then
     echo $log_warning"Build mode is empty ... setting default to full"
     mode="full"
     mode_set=true
 else
-    for m in "${modes[@]}"
-    do
-        if [ "$mode" == "$m" ]
-        then
+    for m in "${modes[@]}"; do
+        if [ "$mode" == "$m" ]; then
             mode_set=true
             echo $log_info"Mode to build set to "$mode
             break
@@ -101,8 +95,7 @@ else
     done
 fi
 
-if [ -z "$mode_set" ]
-then
+if [ -z "$mode_set" ]; then
     echo $log_error"Mode set does not exists. Please select from ${modes[@]}"
     exit 1
 fi
@@ -111,8 +104,10 @@ fi
 rm -rf build/
 mkdir build
 
-echo $log_info'Calling command: 'cmake' -S . -G ''"'${target}'"' -B build/ -D CMAKE_MAKE_PROGRAM=$mkp -D MODE=$mode
-cmake -S . -G ''"${target}"'' -B build/ -D CMAKE_MAKE_PROGRAM=$mkp -D MODE=$mode | sed -e 's/^/'"${log_debug}"'/;'
+# removing the blank space from the first target parameter
+tpar[1]="$(echo ${tpar[1]})"
+echo $log_info'Calling command: 'cmake' -S . -G ''"'${tpar[1]}'"' -B build/ -D CMAKE_MAKE_PROGRAM=$mkp -D MODE=$mode
+cmake -S . -G ''"${tpar[1]}"'' -B build/ -D CMAKE_MAKE_PROGRAM=$mkp -D MODE=$mode | sed -e 's/^/'"${log_debug}"'/;'
 
 cd build/
 echo $log_info'Calling command: make'
