@@ -2,6 +2,10 @@ cmake_minimum_required(VERSION 3.19.8)
 
 project(LewEngine VERSION 1.0)
 
+set(GLFW_PATH ${CMAKE_CURRENT_SOURCE_DIR}/include/ext/GLFW/)
+set(GLM_PATH "..")
+set(VULKAN_PATH "..")
+
 if(${MODE} STREQUAL test)
 
     set(TEST_DIR ${CMAKE_CURRENT_SOURCE_DIR}/test)
