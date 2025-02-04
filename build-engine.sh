@@ -14,11 +14,7 @@ targets=(
     ["VS16"]="Visual Studio 16 2019"
     ["VS15"]="Visual Studio 15 2017"
     ["VS14"]="Visual Studio 14 2015"
-    ["MinGW"]="
-        MinGW Makefiles
-        export CC=/c/msys64/mingw64/bin/gcc
-        export CXX=/c/msys64/mingw64/bin/g++
-        mkp=/c/msys64/mingw64/bin/make"
+    ["MinGW"]="MinGW Makefiles"
     ["NMake"]="NMake Makefiles"
     ["MSYS"]="MSYS Makefiles"
     ["Unix"]="Unix Makefiles"
@@ -74,12 +70,6 @@ if [ -z "$target_set" ]; then
     exit 1
 fi
 
-# setup environment target parameters based on selected target from 2nd position
-readarray -t tpar <<< "${targets[$target]}"
-for (( i=2; i<"$(("${#tpar[@]}"))"; i++ )); do
-    eval "${tpar[$i]}"
-done
-
 # detecting build mode
 if [ -z "$mode" ]; then
     echo $log_warning"Build mode is empty ... setting default to full"
@@ -102,14 +92,12 @@ fi
 
 # starting build process
 rm -rf build/
-mkdir build
 
 # removing the blank space from the first target parameter
-tpar[1]="$(echo ${tpar[1]})"
-echo $log_info'Calling command: 'cmake' -S . -G ''"'${tpar[1]}'"' -B build/ -D CMAKE_MAKE_PROGRAM=$mkp -D MODE=$mode
-cmake -S . -G ''"${tpar[1]}"'' -B build/ -D CMAKE_MAKE_PROGRAM=$mkp -D MODE=$mode | sed -e 's/^/'"${log_debug}"'/;'
+echo $log_info'Calling command: 'cmake' -S . -G '"${targets[$target]}"' -B build/ -D CMAKE_MAKE_PROGRAM='${make}' -D MODE='${mode}''
+${CMAKE} -S . -G "${targets[$target]}" -B build/ -D CMAKE_MAKE_PROGRAM=${make} -D MODE=$mode | sed -e 's/^/'"${log_debug}"'/;'
 
 cd build/
 echo $log_info'Calling command: make'
-make | sed -e 's/^/'"${log_debug}"'/;'
+${MAKE} | sed -e 's/^/'"${log_debug}"'/;'
 
