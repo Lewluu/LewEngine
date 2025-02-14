@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.19.8)
 
-set(CMAKE_MAKE_PROGRAM $ENV{MAKE_PATH} CACHE INTERNAL "")
+set(CMAKE_MAKE_PROGRAM $ENV{MAKE} CACHE INTERNAL "")
 
 project(LewEngine VERSION 1.0)
 
