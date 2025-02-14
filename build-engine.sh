@@ -94,10 +94,10 @@ fi
 rm -rf build/
 
 # removing the blank space from the first target parameter
-echo $log_info'Calling command: 'cmake' -S . -G '"${targets[$target]}"' -B build/ -D CMAKE_MAKE_PROGRAM='${make}' -D MODE='${mode}''
-${CMAKE} -S . -G "${targets[$target]}" -B build/ -D CMAKE_MAKE_PROGRAM=${make} -D MODE=$mode | sed -e 's/^/'"${log_debug}"'/;'
+echo $log_info'Calling command: 'cmake' -S . -G '"${targets[$target]}"' -B build/ -D MODE='${mode}''
+cmake -S . -G "${targets[$target]}" -B build/ -D MODE=$mode | sed -e 's/^/'"${log_debug}"'/;'
 
 cd build/
 echo $log_info'Calling command: make'
-${MAKE} | sed -e 's/^/'"${log_debug}"'/;'
+make | sed -e 's/^/'"${log_debug}"'/;'
 

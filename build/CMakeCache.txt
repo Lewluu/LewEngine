@@ -115,9 +115,6 @@ CMAKE_INSTALL_PREFIX:PATH=C:/Program Files (x86)/LewEngine
 //Path to a program.
 CMAKE_LINKER:FILEPATH=C:/msys64/mingw64/bin/ld.exe
 
-//No help, variable specified on the command line.
-CMAKE_MAKE_PROGRAM:UNINITIALIZED=C:/msys64/mingw64/bin/make
-
 //Flags used by the linker during the creation of modules during
 // all build types.
 CMAKE_MODULE_LINKER_FLAGS:STRING=
@@ -175,7 +172,7 @@ CMAKE_PROJECT_VERSION_TWEAK:STATIC=
 CMAKE_RANLIB:FILEPATH=C:/msys64/mingw64/bin/ranlib.exe
 
 //RC compiler
-CMAKE_RC_COMPILER:FILEPATH=C:/msys64/ucrt64/bin/windres.exe
+CMAKE_RC_COMPILER:FILEPATH=C:/msys64/mingw64/bin/windres.exe
 
 //Flags for Windows Resource Compiler during all build types.
 CMAKE_RC_FLAGS:STRING=
@@ -356,6 +353,7 @@ CMAKE_GENERATOR_TOOLSET:INTERNAL=
 CMAKE_HOME_DIRECTORY:INTERNAL=C:/Workspace/LewEngine/LewEngine
 //ADVANCED property for variable: CMAKE_LINKER
 CMAKE_LINKER-ADVANCED:INTERNAL=1
+CMAKE_MAKE_PROGRAM:INTERNAL=C:/msys64/mingw64/bin/make
 //ADVANCED property for variable: CMAKE_MODULE_LINKER_FLAGS
 CMAKE_MODULE_LINKER_FLAGS-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_MODULE_LINKER_FLAGS_DEBUG
