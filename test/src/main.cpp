@@ -13,6 +13,8 @@ The code from this directory is build via 'build-engine.sh -m test' command
  int main(){
 
     std::cout<<"Hello, World!"<<std::endl;
+    
+    system("PAUSE");
 
     return 0;
  }
