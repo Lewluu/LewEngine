@@ -7,12 +7,20 @@ Ex: testing certain C++ aspects, scripts, buildchain, libraries, etc.
 The code from this directory is build via 'build-engine.sh -m test' command
 
 */
- #include <iostream>
+ #include "Test.h"
+ #include "Log.h"
 
 
  int main(){
 
-    std::cout<<"Hello, World!"<<std::endl;
+    Test t;
+    Log l;
+
+    t.setValues("Eu sunt testul", 1);
+    t.callValues();
+
+    l.setFormat(LT);
+    l.Info("Test Info");
 
     return 0;
  }

@@ -1,22 +1,15 @@
 #pragma once
+#include <iostream>
 #include <string>
 
 class Test {
     public:
         Test(/* args */);
         ~Test();
-        void setValues(std::string strval, int8_t int8vl);
+        void setValues(std::string strval, int int8val);
         void callValues();
     
     private:
-        std::string _str_value;
-        int8_t _int8_value;
+        std::string m_str_value;
+        int m_int_value;
 };
-
-Test::Test(/* args */)
-{
-}
-
-Test::~Test()
-{
-}
