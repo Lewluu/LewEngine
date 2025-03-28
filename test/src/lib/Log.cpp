@@ -7,25 +7,25 @@ Log::Log(){
 void Log::setFormat(FORMAT format){
     switch(format){
         case L:
-            m_format = "[::: LEW ENGINE ::: ";
+            m_format = "- LEW ENGINE";
             break;
         case LT:
-            m_format = "[::: LEW ENGINE - TIME ::: ";
+            m_format = "- LEW ENGINE - TIME";
             break;
         case LDT:
-            m_format = "[::: LEW ENGINE - DATE - TIME ::: ";
+            m_format = "- LEW ENGINE - DATE - TIME";
             break;
         case LTD:
-            m_format = "[::: LEW ENGINE - TIME - DATE ::: ";
+            m_format = "- LEW ENGINE - TIME - DATE";
             break;
         default:
-            m_format = "[::: LEW ENGINE - TIME ::: ";
+            m_format = "- LEW ENGINE - TIME";
             break;
     }
 }
 
 void Log::Info(std::string info){
-    std::cout << "INFO" << m_format << " " << info << "\n";
+    std::cout << "[::: INFO " << m_format << " :::] " << info << "\n";
 }
 
 Log::~Log(){

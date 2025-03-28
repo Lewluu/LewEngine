@@ -38,14 +38,18 @@ help () {
     echo "-m = Defines build mode. Possible argument values: "${modes[@]}""
     echo "Default is 'full' if empty."
     echo ""
+    echo "-s = Skip mentioned steps. Possible argument values: "${steps[@]}""
+    echo "Default none."
+    echo ""
 
     exit 0
 }
 
-while getopts ":ht:m:" flag; do
+while getopts ":ht:m:s:" flag; do
     case "${flag}" in
         m) mode=${OPTARG};;
         t) target=${OPTARG};;
+        s) skips=${OPTARG};;
         h) help;;
     esac
 done
