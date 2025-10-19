@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Node components for blew",
   "main": "dist/blew.js",
-  "types": "blew.ts",
+  "types": "src/blew.ts",
   "directories": {
     "test": "test"
   },
