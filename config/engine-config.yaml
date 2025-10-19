@@ -1,0 +1,36 @@
+# Configurator for the engine buildchain and workflows
+
+name: LewEngine
+
+version: 1.0.0
+
+description: |
+  ''
+
+engine:
+  build:
+    - container: 'true'
+    - dir: '.build/'
+    - target: 'linux'
+    - mode: 'full'
+      components:
+        - test: 'true'
+    - cmd: 'scripts/build-engine.sh'
+
+setup:
+  linux:
+    - env-variables: 'env/linux-variables.env'
+    - cmd: 'scripts/linux-setup.sh'
+  mingw64:
+    - env-variables: 'env/mingw64-variables.env'
+    - cmd: 'scripts/mingw64-setup.sh'
+
+test:
+
+exe:
+
+install: 'false'
+
+clean:
+  paths:
+

@@ -1,0 +1,25 @@
+{
+  "name": "lewengine",
+  "version": "1.0.0",
+  "description": "Node components for blew",
+  "main": "dist/blew.js",
+  "types": "blew.ts",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "compile": "npx tsc",
+    "build": "node $npm_package_main",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "git+https://github.com/Lewluu/LewEngine.git",
+  "author": "Lewlu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lewluu/LewEngine/issues"
+  },
+  "homepage": "https://github.com/Lewluu/LewEngine#readme",
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}

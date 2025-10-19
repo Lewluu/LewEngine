@@ -38,7 +38,7 @@ help () {
     echo "-m = Defines build mode. Possible argument values: "${modes[@]}""
     echo "Default is 'full' if empty."
     echo ""
-    echo "-s = Skip mentioned steps. Possible argument values: "${steps[@]}""
+    echo "-s = Skip mentioned components. Possible argument values: "${steps[@]}""
     echo "Default none."
     echo ""
 

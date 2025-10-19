@@ -2,7 +2,10 @@
 LewEngine - graphics engine based on Vulkan API
 
 ## Steps
-Starting point of the project: **./blew**
+Starting point of the project: **./blew.ts**
+
+## Configuration
+Path: .config/config.yaml 
 
 ## Options
 - **-b/--build**:   Build the project for the specified target and method (app, test, ..)

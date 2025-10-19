@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y \
 	libxcursor-dev libxinerama-dev libxrandr-dev libglfw3 libglfw3-dev \
 	build-essential cmake ca-certificates gpg wget curl vim \
 	fakeroot dpkg-dev devscripts debhelper-compat dh-python equivs \
-	g++ python3 python3-venv git lshw
+	g++ python3 python3-venv git lshw sudo
 
 # Prepare python virtual environment
 RUN python3 -m venv  /.venv
@@ -19,3 +19,12 @@ RUN python3 -m venv  /.venv
 # Install pip
 RUN curl -sSL https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
 	./.venv/bin/python3 get-pip.py
+
+# Create vulkan user
+RUN groupadd vulkan
+RUN useradd -m -G vulkan vulkan-user
+RUN usermod -a -G sudo vulkan-user
+RUN vulkan-user ALL=(ALL) NOPASSWD: ALL
+
+WORKDIR /home/vulkan-user
+USER /home/vulkan-user
