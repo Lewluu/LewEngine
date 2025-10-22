@@ -15,15 +15,15 @@ engine:
     - mode: 'full'
       components:
         - test: 'true'
-    - cmd: 'scripts/build-engine.sh'
+    - cmd: 'bin/build-engine'
 
 setup:
   linux:
     - env-variables: 'env/linux-variables.env'
-    - cmd: 'scripts/linux-setup.sh'
+    - cmd: 'bin/linux-setup'
   mingw64:
     - env-variables: 'env/mingw64-variables.env'
-    - cmd: 'scripts/mingw64-setup.sh'
+    - cmd: 'bin/mingw64-setup'
 
 test:
 

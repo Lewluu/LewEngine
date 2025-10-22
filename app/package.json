@@ -2,15 +2,16 @@
   "name": "lewengine",
   "version": "1.0.0",
   "description": "Node components for blew",
-  "main": "dist/blew.js",
-  "types": "src/blew.ts",
+  "main": "dist/index.js",
+  "types": "src/index.ts",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "compile": "npx tsc",
-    "build": "node $npm_package_main",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "tsc": "npx tsc --build --verbose --listFiles --listEmittedFiles",    
+    "build": "node $npm_package_main --build",
+    "run": "../build/LewEngine",
+    "test": "node $npm_package_main --test"
   },
   "repository": "git+https://github.com/Lewluu/LewEngine.git",
   "author": "Lewlu",
