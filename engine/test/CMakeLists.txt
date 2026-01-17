@@ -18,10 +18,17 @@ add_library(LogTest STATIC IMPORTED)
 # comment this to not use already build log
 set_target_properties(LogTest PROPERTIES IMPORTED_LOCATION ${PROJ_PATH}/test/src/lib/static/libLogTest.a)
 
+# find_package(Vulkan REQUIRED)
+find_package(glfw3 3.4 REQUIRED)
+# find_package(glm REQUIRED)
+
 target_link_libraries(
     ${PROJECT_NAME} PUBLIC
     LibTest
     LogTest
+    # Vulkan::Vulkan
+    glfw
+    # glm::glm
 )
 
 target_include_directories(

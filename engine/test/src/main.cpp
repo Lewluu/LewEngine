@@ -1,26 +1,45 @@
-/*
+#define GLFW_INCLUDE_VULKAN
+#include <GLFW/glfw3.h>
 
-Root for building test code.
-Related or not-related to the engine.
-Ex: testing certain C++ aspects, scripts, buildchain, libraries, etc.
+// #define GLM_FORCE_RADIANS
+// #define GLM_FORCE_DEPTH_ZERO_TO_ONE
+// #include <glm/vec4.hpp>
+// #include <glm/mat4x4.hpp>
 
-The code from this directory is build via 'build-engine.sh -m test' command
+#include "Test.h"
+#include "Log.h"
 
-*/
- #include "Test.h"
- #include "Log.h"
+void testLibs() {
+   Test t;
+   Log l;
 
+   t.setValues("Eu sunt testul", 1);
+   t.callValues();
 
- int main(){
+   l.setFormat(LT);
+   l.Info("Test Info");
+}
 
-    Test t;
-    Log l;
+void testApi(){
 
-    t.setValues("Eu sunt testul", 1);
-    t.callValues();
+   glfwInit();
+   
+   GLFWwindow *window = glfwCreateWindow(800, 600, "Test GLFW", NULL, NULL);
 
-    l.setFormat(LT);
-    l.Info("Test Info");
+   glfwMakeContextCurrent(window);
 
-    return 0;
- }
+   while (!glfwWindowShouldClose(window)) {
+      // glClear(GL_COLOR_BUFFER_BIT);
+      glfwSwapBuffers(window);
+      glfwPollEvents();
+   }
+
+   glfwTerminate();
+}
+
+int main(){
+
+   testApi();
+
+   return 0;
+}
