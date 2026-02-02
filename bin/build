@@ -2,34 +2,36 @@
 
 set -e
 
+build_dir="${PWD}/build"
+engine_dir="${PWD}/engine"
+
+# Log configuration
 log_debug="[::: BUILD DEBUG :::] "
 log_info="[::: BUILD INFO :::] "
 log_warning="[::: BUILD WARNING :::] "
 log_error="[::: BUILD ERROR :::] "
 
-# set targets with environment variables
+# Set target options
 declare -A targets
 targets=(
     ["VS17"]="Visual Studio 17 2022"
     ["VS16"]="Visual Studio 16 2019"
     ["VS15"]="Visual Studio 15 2017"
     ["VS14"]="Visual Studio 14 2015"
-    ["MinGW"]="
-        MinGW Makefiles
-        export CC=/c/msys64/mingw64/bin/gcc
-        export CXX=/c/msys64/mingw64/bin/g++
-        mkp=/c/msys64/mingw64/bin/make"
+    ["MinGW"]="MinGW Makefiles"
     ["NMake"]="NMake Makefiles"
     ["MSYS"]="MSYS Makefiles"
     ["Unix"]="Unix Makefiles"
 )
 
+# Set build mode options
 modes=(
     full
     test
     rebuild
 )
 
+# Help command
 help () {
     echo ""
     echo "Script for the LewEngine build process."
@@ -42,19 +44,24 @@ help () {
     echo "-m = Defines build mode. Possible argument values: "${modes[@]}""
     echo "Default is 'full' if empty."
     echo ""
+    echo "-s = Skip mentioned components. Possible argument values: "${steps[@]}""
+    echo "Default none."
+    echo ""
 
     exit 0
 }
 
-while getopts ":ht:m:" flag; do
+# Parsing arguments
+while getopts ":ht:m:s:" flag; do
     case "${flag}" in
         m) mode=${OPTARG};;
         t) target=${OPTARG};;
+        s) skips=${OPTARG};;
         h) help;;
     esac
 done
 
-# detecting the target build
+# Detecting the target build
 if [ -z "$target" ]; then
     echo $log_warning"Target is empty ... setting default to MinGW"
     target="MinGW"
@@ -74,13 +81,7 @@ if [ -z "$target_set" ]; then
     exit 1
 fi
 
-# setup environment target parameters based on selected target from 2nd position
-readarray -t tpar <<< "${targets[$target]}"
-for (( i=2; i<"$(("${#tpar[@]}"))"; i++ )); do
-    eval "${tpar[$i]}"
-done
-
-# detecting build mode
+# Detecting build mode
 if [ -z "$mode" ]; then
     echo $log_warning"Build mode is empty ... setting default to full"
     mode="full"
@@ -100,16 +101,13 @@ if [ -z "$mode_set" ]; then
     exit 1
 fi
 
-# starting build process
-rm -rf build/
-mkdir build
+# Starting build process
+rm -rf ${build_dir}
 
-# removing the blank space from the first target parameter
-tpar[1]="$(echo ${tpar[1]})"
-echo $log_info'Calling command: 'cmake' -S . -G ''"'${tpar[1]}'"' -B build/ -D CMAKE_MAKE_PROGRAM=$mkp -D MODE=$mode
-cmake -S . -G ''"${tpar[1]}"'' -B build/ -D CMAKE_MAKE_PROGRAM=$mkp -D MODE=$mode | sed -e 's/^/'"${log_debug}"'/;'
+cd ${engine_dir}
+echo $log_info'Calling command: 'cmake' -S . -G '"${targets[$target]}"' -B '${build_dir}' -D MODE='${mode}''
+cmake -S . -G "${targets[$target]}" -B ${build_dir} -D MODE=$mode | sed -e 's/^/'"${log_debug}"'/;'
 
-cd build/
+cd ${build_dir}
 echo $log_info'Calling command: make'
 make | sed -e 's/^/'"${log_debug}"'/;'
-
