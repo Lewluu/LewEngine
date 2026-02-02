@@ -2,9 +2,6 @@
 
 set -e
 
-build_dir="${PWD}/build"
-engine_dir="${PWD}/engine"
-
 # Log configuration
 log_debug="[::: BUILD DEBUG :::] "
 log_info="[::: BUILD INFO :::] "
@@ -102,12 +99,12 @@ if [ -z "$mode_set" ]; then
 fi
 
 # Starting build process
-rm -rf ${build_dir}
+rm -rf ${BUILD_DIR}
 
-cd ${engine_dir}
-echo $log_info'Calling command: 'cmake' -S . -G '"${targets[$target]}"' -B '${build_dir}' -D MODE='${mode}''
-cmake -S . -G "${targets[$target]}" -B ${build_dir} -D MODE=$mode | sed -e 's/^/'"${log_debug}"'/;'
+cd ${ENGINE_DIR}
+echo $log_info'Calling command: 'cmake' -S . -G '"${targets[$target]}"' -B '${BUILD_DIR}' -D MODE='${mode}''
+cmake -S . -G "${targets[$target]}" -B ${BUILD_DIR} -D MODE=$mode | sed -e 's/^/'"${log_debug}"'/;'
 
-cd ${build_dir}
+cd ${BUILD_DIR}
 echo $log_info'Calling command: make'
 make | sed -e 's/^/'"${log_debug}"'/;'
