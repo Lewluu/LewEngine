@@ -1,14 +1,13 @@
-#!/bin/bash
+#!/usr/bin/bash
 
 set -e
 
-# Log configuration
 log_debug="[::: BUILD DEBUG :::] "
 log_info="[::: BUILD INFO :::] "
 log_warning="[::: BUILD WARNING :::] "
 log_error="[::: BUILD ERROR :::] "
 
-# Set target options
+# set targets with environment variables
 declare -A targets
 targets=(
     ["VS17"]="Visual Studio 17 2022"
@@ -21,14 +20,12 @@ targets=(
     ["Unix"]="Unix Makefiles"
 )
 
-# Set build mode options
 modes=(
     full
     test
     rebuild
 )
 
-# Help command
 help () {
     echo ""
     echo "Script for the LewEngine build process."
@@ -48,7 +45,6 @@ help () {
     exit 0
 }
 
-# Parsing arguments
 while getopts ":ht:m:s:" flag; do
     case "${flag}" in
         m) mode=${OPTARG};;
@@ -58,7 +54,7 @@ while getopts ":ht:m:s:" flag; do
     esac
 done
 
-# Detecting the target build
+# detecting the target build
 if [ -z "$target" ]; then
     echo $log_warning"Target is empty ... setting default to MinGW"
     target="MinGW"
@@ -78,7 +74,7 @@ if [ -z "$target_set" ]; then
     exit 1
 fi
 
-# Detecting build mode
+# detecting build mode
 if [ -z "$mode" ]; then
     echo $log_warning"Build mode is empty ... setting default to full"
     mode="full"
@@ -98,13 +94,15 @@ if [ -z "$mode_set" ]; then
     exit 1
 fi
 
-# Starting build process
-rm -rf ${BUILD_DIR}
+# starting build process
+rm -rf build/
+cd engine/
 
-cd ${ENGINE_DIR}
-echo $log_info'Calling command: 'cmake' -S . -G '"${targets[$target]}"' -B '${BUILD_DIR}' -D MODE='${mode}''
-cmake -S . -G "${targets[$target]}" -B ${BUILD_DIR} -D MODE=$mode | sed -e 's/^/'"${log_debug}"'/;'
+# removing the blank space from the first target parameter
+echo $log_info'Calling command: 'cmake' -S . -G '"${targets[$target]}"' -B build/ -D MODE='${mode}''
+cmake -S . -G "${targets[$target]}" -B ../build -D MODE=$mode | sed -e 's/^/'"${log_debug}"'/;'
 
-cd ${BUILD_DIR}
+cd ../build
 echo $log_info'Calling command: make'
 make | sed -e 's/^/'"${log_debug}"'/;'
+
