@@ -95,14 +95,14 @@ if [ -z "$mode_set" ]; then
 fi
 
 # starting build process
-rm -rf build/
-cd engine/
+rm -rf ${LEWENGINE_DIR}/build/
+cd ${LEW_ENGINE_DIR}/engine/
 
 # removing the blank space from the first target parameter
-echo $log_info'Calling command: 'cmake' -S . -G '"${targets[$target]}"' -B build/ -D MODE='${mode}''
-cmake -S . -G "${targets[$target]}" -B ../build -D MODE=$mode | sed -e 's/^/'"${log_debug}"'/;'
+echo $log_info'Calling command: 'cmake' -S . -G '"${targets[$target]}"' -B ${LEW_ENGINE_DIR}/build -D MODE='${mode}''
+cmake -S . -G "${targets[$target]}" -B ${LEW_ENGINE_DIR}/build -D MODE=$mode | sed -e 's/^/'"${log_debug}"'/;'
 
-cd ../build
+cd ${LEW_ENGINE_DIR}/build
 echo $log_info'Calling command: make'
 make | sed -e 's/^/'"${log_debug}"'/;'
 
