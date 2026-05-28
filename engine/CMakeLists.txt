@@ -7,21 +7,26 @@ project(LewEngine VERSION 1.0)
 if(${MODE} STREQUAL test)
 
     set(TEST_DIR ${CMAKE_CURRENT_SOURCE_DIR}/test)
-    set(LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src/include)
+    set(LIB_DIR ${TEST_DIR}/src/include)
 
     include(${TEST_DIR}/CMakeLists.txt)
-elseif(${MODE} STREQUAL full)
-    add_executable(${PROJECT_NAME} ${CMAKE_CURRENT_LIST_DIR}/src/main.cpp)
+    
+elseif(${MODE} STREQUAL full OR ${MODE} STREQUAL rebuild)
 
+    set(CORE ${CMAKE_CURRENT_SOURCE_DIR}/core/main.cpp)
+    set(SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
+    set(LIB_DIR ${SRC_DIR}/include)
+    set(COMP_DIR ${LIB_DIR}/components)
     set(
-        LIB_SRC 
-        ${LIB_DIR}/Test.cpp 
-        ${LIB_DIR}/Log.cpp
+        SRC_FILES
+        ${SRC_DIR}/LewEngine.cpp 
     )
+
+    add_executable(${PROJECT_NAME} ${CORE})
 
     # Build libraries code directly into source code
     target_sources(${PROJECT_NAME} PUBLIC
-        ${LIB_SRC}
+        ${SRC_FILES}
     )
 
     find_package(Vulkan REQUIRED)

@@ -9,11 +9,15 @@ namespace lwg {
             LewEngine();
             ~LewEngine();
         private:
-            lwg::Log _m_log;
-            lwg::Camera _m_camera;
-            lwg::Events _m_events;
-            lwg::Device _m_device;
-            lwg::UI _m_ui;
-            lwg::Scene3D _m_scene3d;
-    }
+            GLFWmonitor* _m_monitor;
+            GLFWwindow* _m_window;
+            void _m_SetupMonitor();
+            void _m_SetupWindow();
+            // lwg::Log _m_log;
+            // lwg::Camera _m_camera;
+            // lwg::Events _m_events;
+            // lwg::Device _m_device;
+            // lwg::UI _m_ui;
+            // lwg::Scene3D _m_scene3d;
+    };
 }

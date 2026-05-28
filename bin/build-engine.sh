@@ -98,6 +98,11 @@ fi
 rm -rf ${LEWENGINE_DIR}/build/
 cd ${LEW_ENGINE_DIR}/engine/
 
+if [ "$mode" == "full" ]; then
+    echo $log_info'Removing build folder...'
+    rm -rf ${LEW_ENGINE_DIR}/build
+fi
+
 # removing the blank space from the first target parameter
 echo $log_info'Calling command: 'cmake' -S . -G '"${targets[$target]}"' -B ${LEW_ENGINE_DIR}/build -D MODE='${mode}''
 cmake -S . -G "${targets[$target]}" -B ${LEW_ENGINE_DIR}/build -D MODE=$mode | sed -e 's/^/'"${log_debug}"'/;'
