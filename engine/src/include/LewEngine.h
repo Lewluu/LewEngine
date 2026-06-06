@@ -1,23 +1,19 @@
-#define GLFW_INCLUDE_VULKAN
+#ifndef GLFW_INIT
+#define GLFW_INIT
 #include <GLFW/glfw3.h>
-#include <glm/vec4.hpp>
-#include <glm/mat4x4.hpp>
+#include <iostream>
+#endif
+
+#include "Window.h"
 
 namespace lwg {
     class LewEngine {
         public:
             LewEngine();
+            void start();
+            void terminate();
             ~LewEngine();
         private:
-            GLFWmonitor* _m_monitor;
-            GLFWwindow* _m_window;
-            void _m_SetupMonitor();
-            void _m_SetupWindow();
-            // lwg::Log _m_log;
-            // lwg::Camera _m_camera;
-            // lwg::Events _m_events;
-            // lwg::Device _m_device;
-            // lwg::UI _m_ui;
-            // lwg::Scene3D _m_scene3d;
+            Window *_m_window;
     };
 }

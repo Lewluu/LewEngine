@@ -20,6 +20,7 @@ elseif(${MODE} STREQUAL full OR ${MODE} STREQUAL rebuild)
     set(
         SRC_FILES
         ${SRC_DIR}/LewEngine.cpp 
+        ${SRC_DIR}/Window.cpp
     )
 
     add_executable(${PROJECT_NAME} ${CORE})

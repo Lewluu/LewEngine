@@ -98,7 +98,7 @@ fi
 rm -rf ${LEWENGINE_DIR}/build/
 cd ${LEW_ENGINE_DIR}/engine/
 
-if [ "$mode" == "full" ]; then
+if [[ "$mode" == "full" || "$mode" == "test" ]]; then
     echo $log_info'Removing build folder...'
     rm -rf ${LEW_ENGINE_DIR}/build
 fi
