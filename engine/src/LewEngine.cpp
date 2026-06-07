@@ -6,6 +6,10 @@ lwg::LewEngine::LewEngine() {
 
     _m_window = new Window;
     _m_window->init();
+
+    if (VULKAN_INIT_TRUE) {
+        _m_gfx = new VkGFX;
+    }
 }
 
 void lwg::LewEngine::start() {

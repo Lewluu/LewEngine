@@ -24,9 +24,10 @@ void lwg::Window::startLoop() {
 
 void lwg::Window::_m_SetupMonitor() {
     int count, width, height, xscale, yscale, xpos, ypos;
-
+    
     _m_glfw_monitor = glfwGetPrimaryMonitor();
-    const char *name = glfwGetMonitorName(_m_glfw_monitor); 
+
+    const char *name = glfwGetMonitorName(_m_glfw_monitor);
 
     glfwGetVideoModes(_m_glfw_monitor, &count);
     glfwGetMonitorWorkarea(_m_glfw_monitor, &xpos, &ypos, &width, &height);

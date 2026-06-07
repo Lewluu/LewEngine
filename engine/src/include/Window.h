@@ -1,8 +1,11 @@
-#ifndef GLFW_INIT
-#define GLFW_INIT
+#ifdef GLFW_INIT
 #include <iostream>
 #include <GLFW/glfw3.h>
 #endif
+// #ifndef GFX_INIT
+// #include "GFX.h"
+// #define GFX_INIT
+// #endif
 
 namespace lwg{
     class Window {

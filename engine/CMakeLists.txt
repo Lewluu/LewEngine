@@ -13,6 +13,8 @@ if(${MODE} STREQUAL test)
     
 elseif(${MODE} STREQUAL full OR ${MODE} STREQUAL rebuild)
 
+    add_compile_definitions(GLFW_INIT VULKAN_INIT)      # Let it be default for now
+
     set(CORE ${CMAKE_CURRENT_SOURCE_DIR}/core/main.cpp)
     set(SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
     set(LIB_DIR ${SRC_DIR}/include)
@@ -21,6 +23,8 @@ elseif(${MODE} STREQUAL full OR ${MODE} STREQUAL rebuild)
         SRC_FILES
         ${SRC_DIR}/LewEngine.cpp 
         ${SRC_DIR}/Window.cpp
+        # ${SRC_DIR}/GFX.cpp
+        # ${SRC_DIR}/VkGFX.cpp
     )
 
     add_executable(${PROJECT_NAME} ${CORE})
