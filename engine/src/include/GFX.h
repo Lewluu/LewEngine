@@ -1,4 +1,8 @@
 // Source for the graphics pipeline context
+#pragma once
+#ifdef VULKAN_INIT
+#include "VkGFX.h"
+#endif
 
 namespace lwg {
     class GFX {
@@ -6,7 +10,8 @@ namespace lwg {
             GFX();
             ~GFX();
             void init();
+            void setContext();
         private:
-        protected:
+            TargetGFX *_m_target_gfx;
     };
 }

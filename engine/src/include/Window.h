@@ -1,19 +1,17 @@
+#pragma once
 #ifdef GLFW_INIT
-#include <iostream>
 #include <GLFW/glfw3.h>
 #endif
-// #ifndef GFX_INIT
-// #include "GFX.h"
-// #define GFX_INIT
-// #endif
+#include <iostream>
+#include "GFX.h"
 
 namespace lwg{
     class Window {
         public:
             Window();
-            void init();
-            void startLoop();
             ~Window();
+            void init();
+            void startLoop(GFX *gfx);
         private:
             GLFWmonitor* _m_glfw_monitor;       // Used for default fullscreen values
             GLFWwindow* _m_glfw_window;

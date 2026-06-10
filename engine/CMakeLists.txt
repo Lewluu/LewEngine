@@ -23,8 +23,8 @@ elseif(${MODE} STREQUAL full OR ${MODE} STREQUAL rebuild)
         SRC_FILES
         ${SRC_DIR}/LewEngine.cpp 
         ${SRC_DIR}/Window.cpp
-        # ${SRC_DIR}/GFX.cpp
-        # ${SRC_DIR}/VkGFX.cpp
+        ${SRC_DIR}/GFX.cpp
+        ${SRC_DIR}/VkGFX.cpp
     )
 
     add_executable(${PROJECT_NAME} ${CORE})

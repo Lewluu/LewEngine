@@ -7,7 +7,7 @@ void lwg::Window::init() {
     _m_SetupWindow();
 }
 
-void lwg::Window::startLoop() {
+void lwg::Window::startLoop(GFX *gfx) {
     if (!_m_glfw_window) {
         glfwTerminate();
         exit(EXIT_FAILURE);
@@ -15,6 +15,9 @@ void lwg::Window::startLoop() {
 
     while (!glfwWindowShouldClose(_m_glfw_window)) {
         glfwSwapBuffers(_m_glfw_window);
+
+        gfx->setContext();
+
         glfwSwapInterval(1);
         glfwPollEvents();
     }

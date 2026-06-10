@@ -7,13 +7,12 @@ lwg::LewEngine::LewEngine() {
     _m_window = new Window;
     _m_window->init();
 
-    if (VULKAN_INIT_TRUE) {
-        _m_gfx = new VkGFX;
-    }
+    _m_gfx = new GFX;
+    _m_gfx->init();
 }
 
 void lwg::LewEngine::start() {
-    _m_window->startLoop();
+    _m_window->startLoop(_m_gfx);
 }
 
 void lwg::LewEngine::terminate() {
@@ -21,5 +20,5 @@ void lwg::LewEngine::terminate() {
 }
 
 lwg::LewEngine::~LewEngine(){
-    delete _m_window;
+    delete _m_window, _m_gfx;
 }
