@@ -1,1 +1,2 @@
-path for components
+path for components - generally external libraries or sources objects (e.g.: camera, UI, etc..)
+built in code for objects, keep in previous paths ../
