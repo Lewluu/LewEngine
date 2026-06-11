@@ -16,6 +16,8 @@ void lwg::LewEngine::start() {
 }
 
 void lwg::LewEngine::terminate() {
+    _m_window->cleanup();
+    _m_gfx->cleanup();
     glfwTerminate();
 }
 

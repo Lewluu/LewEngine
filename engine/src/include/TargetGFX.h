@@ -7,5 +7,7 @@ namespace lwg {
             virtual void setContext() = 0;
             virtual void setWindowInstance() = 0;
             virtual void setApiInstance() = 0;
+            virtual void cleanup() = 0;
+            bool setDebug;
     };
 }

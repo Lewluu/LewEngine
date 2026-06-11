@@ -18,6 +18,10 @@ void lwg::GFX::setContext() {
     _m_target_gfx->setContext();
 }
 
+void lwg::GFX::cleanup() {
+    _m_target_gfx->cleanup();
+}
+
 lwg::GFX::~GFX() {
     delete _m_target_gfx;
 }

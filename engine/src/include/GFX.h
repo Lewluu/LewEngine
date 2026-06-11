@@ -11,6 +11,7 @@ namespace lwg {
             ~GFX();
             void init();
             void setContext();
+            void cleanup();
         private:
             TargetGFX *_m_target_gfx;
     };

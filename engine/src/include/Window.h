@@ -12,6 +12,7 @@ namespace lwg{
             ~Window();
             void init();
             void startLoop(GFX *gfx);
+            void cleanup();
         private:
             GLFWmonitor* _m_glfw_monitor;       // Used for default fullscreen values
             GLFWwindow* _m_glfw_window;

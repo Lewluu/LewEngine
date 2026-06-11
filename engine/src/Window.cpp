@@ -21,8 +21,6 @@ void lwg::Window::startLoop(GFX *gfx) {
         glfwSwapInterval(1);
         glfwPollEvents();
     }
-
-    glfwDestroyWindow(_m_glfw_window);
 }
 
 void lwg::Window::_m_SetupMonitor() {
@@ -52,6 +50,10 @@ void lwg::Window::_m_SetupWindow() {
     _m_glfw_window = glfwCreateWindow(800, 600, "Vulkan Window", NULL, NULL);
 
     glfwMakeContextCurrent(_m_glfw_window);
+}
+
+void lwg::Window::cleanup() {
+    glfwDestroyWindow(_m_glfw_window);
 }
 
 lwg::Window::~Window(){}
